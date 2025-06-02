@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>功能测试 - 身法俱乐部</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: white;
+        }
+        .test-section {
+            background: rgba(25, 35, 70, 0.6);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+        }
+        .test-button {
+            background: linear-gradient(90deg, #2962ff, #2979ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            transform: translateY(-2px);
+        }
+        .test-result {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .success { color: #4caf50; }
+        .error { color: #f44336; }
+        .warning { color: #ff9800; }
+    </style>
+</head>
+<body>
+    <h1>🧪 身法俱乐部功能测试</h1>
+    
+    <div class="test-section">
+        <h2>📊 数据模块测试</h2>
+        <button class="test-button" onclick="testDataModule()">测试数据模块</button>
+        <div id="dataResult" class="test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎨 UI控制器测试</h2>
+        <button class="test-button" onclick="testUIController()">测试UI控制器</button>
+        <div id="uiResult" class="test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎯 模态框测试</h2>
+        <button class="test-button" onclick="testPlayerModal()">测试玩家模态框</button>
+        <div id="modalResult" class="test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>⭐ 评分系统测试</h2>
+        <button class="test-button" onclick="testRatingSystem()">测试评分系统</button>
+        <div id="ratingResult" class="test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>💬 评论系统测试</h2>
+        <button class="test-button" onclick="testCommentSystem()">测试评论系统</button>
+        <div id="commentResult" class="test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🚀 完整应用测试</h2>
+        <button class="test-button" onclick="testFullApp()">测试完整应用</button>
+        <button class="test-button" onclick="openMainApp()">打开主应用</button>
+        <div id="appResult" class="test-result"></div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/player-modal.js"></script>
+    <script src="js/rating-system.js"></script>
+    <script src="js/comment-system.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        function log(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            const className = type === 'success' ? 'success' : type === 'error' ? 'error' : type === 'warning' ? 'warning' : '';
+            element.innerHTML += `<div class="${className}">[${new Date().toLocaleTimeString()}] ${message}</div>`;
+        }
+
+        function clearLog(elementId) {
+            document.getElementById(elementId).innerHTML = '';
+        }
+
+        function testDataModule() {
+            clearLog('dataResult');
+            log('dataResult', '开始测试数据模块...');
+            
+            try {
+                // 测试playersData
+                if (typeof playersData !== 'undefined') {
+                    log('dataResult', '✅ playersData 已加载', 'success');
+                    log('dataResult', `- 变异solo玩家: ${playersData.variation.length}人`);
+                    log('dataResult', `- 躲猫猫solo玩家: ${playersData.hideSeek.length}人`);
+                    log('dataResult', `- 极限跳跃玩家: ${playersData.extreme.length}人`);
+                    log('dataResult', `- 跳点玩家: ${playersData.jumpPoints.length}人`);
+                    log('dataResult', `- 荣誉提名: ${playersData.honorary.length}人`);
+                } else {
+                    log('dataResult', '❌ playersData 未定义', 'error');
+                }
+
+                // 测试playerDetails
+                if (typeof playerDetails !== 'undefined') {
+                    log('dataResult', '✅ playerDetails 已加载', 'success');
+                    log('dataResult', `- 详细信息人数: ${Object.keys(playerDetails).length}人`);
+                } else {
+                    log('dataResult', '❌ playerDetails 未定义', 'error');
+                }
+
+                log('dataResult', '✅ 数据模块测试完成', 'success');
+            } catch (error) {
+                log('dataResult', `❌ 数据模块测试失败: ${error.message}`, 'error');
+            }
+        }
+
+        function testUIController() {
+            clearLog('uiResult');
+            log('uiResult', '开始测试UI控制器...');
+            
+            try {
+                if (typeof UIController !== 'undefined') {
+                    const ui = new UIController();
+                    log('uiResult', '✅ UIController 类已定义', 'success');
+                    log('uiResult', '✅ UIController 实例创建成功', 'success');
+                } else {
+                    log('uiResult', '❌ UIController 类未定义', 'error');
+                }
+                
+                log('uiResult', '✅ UI控制器测试完成', 'success');
+            } catch (error) {
+                log('uiResult', `❌ UI控制器测试失败: ${error.message}`, 'error');
+            }
+        }
+
+        function testPlayerModal() {
+            clearLog('modalResult');
+            log('modalResult', '开始测试玩家模态框...');
+            
+            try {
+                if (typeof PlayerModal !== 'undefined') {
+                    log('modalResult', '✅ PlayerModal 类已定义', 'success');
+                    // 不创建实例，因为需要DOM元素
+                    log('modalResult', '⚠️  需要完整DOM环境进行实例测试', 'warning');
+                } else {
+                    log('modalResult', '❌ PlayerModal 类未定义', 'error');
+                }
+                
+                log('modalResult', '✅ 玩家模态框测试完成', 'success');
+            } catch (error) {
+                log('modalResult', `❌ 玩家模态框测试失败: ${error.message}`, 'error');
+            }
+        }
+
+        function testRatingSystem() {
+            clearLog('ratingResult');
+            log('ratingResult', '开始测试评分系统...');
+            
+            try {
+                if (typeof RatingSystem !== 'undefined') {
+                    log('ratingResult', '✅ RatingSystem 类已定义', 'success');
+                    log('ratingResult', '⚠️  需要完整DOM环境进行实例测试', 'warning');
+                } else {
+                    log('ratingResult', '❌ RatingSystem 类未定义', 'error');
+                }
+                
+                log('ratingResult', '✅ 评分系统测试完成', 'success');
+            } catch (error) {
+                log('ratingResult', `❌ 评分系统测试失败: ${error.message}`, 'error');
+            }
+        }
+
+        function testCommentSystem() {
+            clearLog('commentResult');
+            log('commentResult', '开始测试评论系统...');
+            
+            try {
+                if (typeof CommentSystem !== 'undefined') {
+                    log('commentResult', '✅ CommentSystem 类已定义', 'success');
+                    log('commentResult', '⚠️  需要完整DOM环境进行实例测试', 'warning');
+                } else {
+                    log('commentResult', '❌ CommentSystem 类未定义', 'error');
+                }
+                
+                log('commentResult', '✅ 评论系统测试完成', 'success');
+            } catch (error) {
+                log('commentResult', `❌ 评论系统测试失败: ${error.message}`, 'error');
+            }
+        }
+
+        function testFullApp() {
+            clearLog('appResult');
+            log('appResult', '开始测试完整应用...');
+            
+            try {
+                if (typeof JumpClubApp !== 'undefined') {
+                    log('appResult', '✅ JumpClubApp 类已定义', 'success');
+                } else {
+                    log('appResult', '❌ JumpClubApp 类未定义', 'error');
+                }
+
+                if (typeof jumpClubApp !== 'undefined') {
+                    log('appResult', '✅ jumpClubApp 实例已创建', 'success');
+                    
+                    const status = jumpClubApp.getAppStatus();
+                    log('appResult', `应用初始化状态: ${status.initialized ? '✅' : '❌'}`);
+                    log('appResult', `模块状态:`);
+                    Object.entries(status.modules).forEach(([name, loaded]) => {
+                        log('appResult', `  - ${name}: ${loaded ? '✅' : '❌'}`);
+                    });
+                } else {
+                    log('appResult', '❌ jumpClubApp 实例未创建', 'error');
+                }
+                
+                log('appResult', '✅ 完整应用测试完成', 'success');
+            } catch (error) {
+                log('appResult', `❌ 完整应用测试失败: ${error.message}`, 'error');
+            }
+        }
+
+        function openMainApp() {
+            window.open('index.html', '_blank');
+        }
+
+        // 页面加载完成后自动运行所有测试
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                testDataModule();
+                testUIController();
+                testPlayerModal();
+                testRatingSystem();
+                testCommentSystem();
+                testFullApp();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

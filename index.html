@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>身法人物图鉴</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+    <div class="grid-pattern"></div>
+    
+    <!-- 置顶滚动按钮 -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <div class="header">
+        <div class="author">作者：八仙 （又作 Ba^Xian）</div>
+        <h1>身法人物图鉴</h1>
+        <p class="subtitle">2014年—2025年全服最有影响力的身法玩家，排名因素：所处时代水平，身法界贡献 人品 人气 等等</p>
+    </div>
+    
+    <div class="nav-container">
+        <div class="nav-tabs">
+            <div class="tab active" data-target="variation">变异solo</div>
+            <div class="tab" data-target="hide-seek">躲猫猫solo</div>
+            <div class="tab" data-target="extreme">极限跳跃</div>
+            <div class="tab" data-target="jump-points">跳点</div>
+            <div class="tab" data-target="honorary">荣誉提名</div>
+            <div class="tab" data-target="detail-players">详情人物一览表</div>
+        </div>
+    </div>
+    
+    <div class="search-container">
+        <input type="text" class="search-box" id="searchInput" placeholder="搜索身法玩家...">
+        <div class="search-icon"><i class="fas fa-search"></i></div>
+    </div>
+    
+    <div class="content-container">
+        <div class="section" id="variation">
+            <h2 class="section-title"><i class="fas fa-running"></i> 变异solo</h2>
+            <div class="players-container">
+                <!-- 变异solo玩家将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <div class="section" id="hide-seek">
+            <h2 class="section-title"><i class="fas fa-eye-slash"></i> 躲猫猫solo</h2>
+            <div class="players-container">
+                <!-- 躲猫猫solo玩家将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <div class="section" id="extreme">
+            <h2 class="section-title"><i class="fas fa-mountain"></i> 极限跳跃</h2>
+            <div class="players-container">
+                <!-- 极限跳跃玩家将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <div class="section" id="jump-points">
+            <h2 class="section-title"><i class="fas fa-arrows-alt-v"></i> 跳点</h2>
+            <div class="players-container">
+                <!-- 跳点玩家将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <div class="section" id="honorary">
+            <h2 class="section-title"><i class="fas fa-award"></i> 荣誉提名</h2>
+            <div class="players-container">
+                <!-- 荣誉提名玩家将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <div class="section" id="detail-players">
+            <h2 class="section-title"><i class="fas fa-users"></i> 详情人物一览表</h2>
+            <div class="players-container">
+                <!-- 所有玩家将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <!-- 新增的评分系统 -->
+        <div class="section rating-system" id="rating-system">
+            <h2 class="section-title"><i class="fas fa-star-half-alt"></i> 玩家评分系统</h2>
+            <p style="margin-bottom: 20px; color: #bbdefb; line-height: 1.6;">
+                为没有详细评价的玩家打分！您的评分将帮助完善身法人物图鉴，为其他玩家提供参考。
+            </p>
+            <div class="rating-form">
+                <div class="rating-item">
+                    <label class="rating-label">人品:</label>
+                    <div class="rating-stars" data-category="人品">
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                    </div>
+                </div>
+                <div class="rating-item">
+                    <label class="rating-label">素质:</label>
+                    <div class="rating-stars" data-category="素质">
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                    </div>
+                </div>
+                <div class="rating-item">
+                    <label class="rating-label">技术:</label>
+                    <div class="rating-stars" data-category="技术">
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                    </div>
+                </div>
+                <div class="rating-item">
+                    <label class="rating-label">创作:</label>
+                    <div class="rating-stars" data-category="创作">
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                    </div>
+                </div>
+                <div class="rating-item">
+                    <label class="rating-label">天赋:</label>
+                    <div class="rating-stars" data-category="天赋">
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                    </div>
+                </div>
+                <div class="rating-item">
+                    <label class="rating-label">知名度:</label>
+                    <div class="rating-stars" data-category="知名度">
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="rating-actions">
+                <button class="rating-btn cancel">重置</button>
+                <button class="rating-btn">提交评分</button>
+            </div>
+        </div>
+        
+        <!-- 评论区 -->
+        <div class="section" id="comments">
+            <h2 class="section-title"><i class="fas fa-comments"></i> 用户评论</h2>
+            <div class="comment-form">
+                <div class="form-group">
+                    <label class="form-label">您的昵称</label>
+                    <input type="text" class="form-input" id="commentName" placeholder="输入昵称">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">您的评论</label>
+                    <textarea class="form-input" id="commentContent" placeholder="写下您的评论..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button class="rating-btn cancel">清空</button>
+                    <button class="rating-btn" id="submitComment">发布评论</button>
+                </div>
+            </div>
+            
+            <div class="comments-container" id="commentsList">
+                <div class="no-comments">
+                    <i class="fas fa-comment-slash" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                    <p>暂无评论，成为第一个评论者！</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 新增的作者说明 -->
+        <div class="author-statement">
+            <h2><i class="fas fa-info-circle"></i> 关于身法论坛</h2>
+            <p>我们旨在完善一个功能完备的身法论坛，具备在线评论、实时分享、账号登录等功能。此工程量巨大，但我们相信<strong class="highlight">路虽远，行则将至</strong>。</p>
+            <p>我们在现有基础上砥砺前行，同时我们非常希望得到您的帮助。您的任何建议和技术或经济上的支持，我们都十分诚恳地接受。</p>
+            <p>以下是我们的赞助码，感谢各位老板的打赏和支持！我们将罗列所有对我们提供帮助者的名单。</p>
+            <p>您有任何的问题可以联系作者：<strong class="highlight">QQ 3111628191</strong></p>
+            
+            <button class="support-btn" id="supportBtn">
+                <i class="fas fa-hand-holding-heart"></i>帮助他
+            </button>
+        </div>
+    </div>
+    
+    <!-- 新增的合作信息 -->
+    <div class="collaboration">
+        <p><strong>合作：</strong> bai</p>
+    </div>
+    
+    <div class="footer">
+        <div class="thanks">特别鸣谢：无言</div>
+        <div>名单来源剑圣，joker协助</div>
+        <div class="copyright">版权所有者：八仙</div>
+        <div class="disclaimer">
+            篇幅与制作水平有限，所涉人物并不全面，导致一些玩家未能录入，后续不断完善，谢谢
+        </div>
+    </div>
+    
+    <!-- 玩家详情模态框 -->
+    <div class="modal" id="playerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalPlayerName"></h2>
+                <div class="modal-period" id="modalPlayerPeriod"></div>
+                <div class="modal-close" id="closeModal"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="modal-body" id="modalPlayerDetails">
+                <!-- 玩家详情将通过JS动态生成 -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- 赞助二维码模态框 -->
+    <div class="sponsor-modal" id="sponsorModal">
+        <div class="sponsor-modal-content">
+            <div class="sponsor-modal-header">
+                <h2 class="sponsor-modal-title">支持身法论坛</h2>
+                <div class="sponsor-modal-close" id="closeSponsorModal"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="sponsor-modal-body">
+                <div class="sponsor-qr">
+                    <img src="./微信图片_2025-06-01_230032_446.jpg" height="150" width="150" alt="微信赞助二维码">
+                    <p>微信赞助二维码</p>
+                </div>
+                <div class="sponsor-qr">
+                    <img src="./微信图片_2025-06-01_230041_342.jpg" height="150" width="150" alt="支付宝赞助二维码">
+                    <p>支付宝赞助二维码</p>
+                </div>
+                <div class="sponsor-info">
+                    <h3><i class="fas fa-gift"></i> 赞助者权益</h3>
+                    <ul>
+                        <li>您的名字将出现在网站赞助者名单中</li>
+                        <li>获得身法论坛VIP会员资格（开发中）</li>
+                        <li>优先体验新功能</li>
+                        <li>专属客服支持</li>
+                        <li>参与身法论坛发展决策</li>
+                    </ul>
+                    <h3 style="margin-top: 30px;"><i class="fas fa-hands-helping"></i> 其他支持方式</h3>
+                    <ul>
+                        <li>技术开发：前端/后端/UI设计</li>
+                        <li>内容贡献：身法教程/技巧分享</li>
+                        <li>社区运营：管理/活动组织</li>
+                        <li>推广宣传：社交媒体分享</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 模块 -->
+    <script src="js/data.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/player-modal.js"></script>
+    <script src="js/rating-system.js"></script>
+    <script src="js/comment-system.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
