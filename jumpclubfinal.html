@@ -1,0 +1,2275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>身法人物图鉴</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0e1d 0%, #1a1f3d 50%, #0c0e1d 100%);
+            color: #e0e0ff;
+            min-height: 100vh;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(41, 128, 185, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(155, 89, 182, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(26, 188, 156, 0.05) 0%, transparent 30%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(25, 30, 60, 0.7) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(25, 30, 60, 0.7) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            color: #4fc3f7;
+            text-shadow: 0 0 15px rgba(79, 195, 247, 0.7);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #4fc3f7, #29b6f6, #03a9f4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #bbdefb;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+        
+        .author {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1rem;
+            color: #81d4fa;
+            background: rgba(25, 35, 70, 0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+        }
+        
+        .nav-container {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            box-shadow: 0 5px 25px rgba(0, 10, 30, 0.5);
+            border: 1px solid rgba(64, 224, 208, 0.2);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tab {
+            background: rgba(25, 35, 70, 0.7);
+            color: #bbdefb;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+        }
+        
+        .tab:hover, .tab.active {
+            background: linear-gradient(90deg, #2962ff, #2979ff, #00b0ff);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(41, 121, 255, 0.4);
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: 2px solid rgba(79, 195, 247, 0.5);
+            background: rgba(10, 15, 35, 0.7);
+            color: #e0e0ff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .search-box:focus {
+            border-color: #29b6f6;
+            box-shadow: 0 0 20px rgba(41, 182, 246, 0.5);
+            background: rgba(15, 25, 45, 0.8);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4fc3f7;
+            font-size: 1.2rem;
+        }
+        
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+        
+        .section {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 5, 15, 0.5);
+            border: 1px solid rgba(64, 224, 208, 0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #29b6f6;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(41, 182, 246, 0.3);
+            text-shadow: 0 0 10px rgba(41, 182, 246, 0.5);
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .players-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        
+        .player-card {
+            background: rgba(25, 35, 70, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .player-card:hover {
+            background: rgba(35, 55, 100, 0.8);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(41, 121, 255, 0.3);
+            border-color: #29b6f6;
+        }
+        
+        .player-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #29b6f6, transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .player-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .player-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #bbdefb;
+            margin-bottom: 5px;
+            text-shadow: 0 0 8px rgba(187, 222, 251, 0.4);
+        }
+        
+        .player-period {
+            font-size: 0.9rem;
+            color: #81d4fa;
+            opacity: 0.8;
+        }
+        
+        /* 详情人物卡片特殊样式 */
+        .player-card.detailed {
+            background: linear-gradient(135deg, rgba(25, 35, 70, 0.9), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .player-card.detailed:hover {
+            background: linear-gradient(135deg, rgba(35, 45, 90, 0.9), rgba(25, 33, 52, 0.9));
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        .stars-container {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 0 0 0 15px;
+            padding: 5px 8px 8px 8px;
+            display: flex;
+            gap: 2px;
+        }
+        
+        .star {
+            color: #FFD700;
+            font-size: 0.8rem;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+        }
+        
+        /* 新添加的评分系统样式 */
+        .rating-system {
+            margin-top: 20px;
+            background: rgba(25, 35, 70, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(64, 224, 208, 0.2);
+        }
+        
+        .rating-title {
+            font-size: 1.5rem;
+            color: #29b6f6;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .rating-title i {
+            margin-right: 10px;
+        }
+        
+        .rating-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .rating-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .rating-label {
+            color: #bbdefb;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .rating-stars {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .rating-star {
+            font-size: 1.4rem;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .rating-star:hover, 
+        .rating-star.active {
+            color: #FFD700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+            transform: scale(1.2);
+        }
+        
+        .rating-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .rating-btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #2962ff, #2979ff);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .rating-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(41, 121, 255, 0.4);
+        }
+        
+        .rating-btn.cancel {
+            background: linear-gradient(90deg, #f44336, #e53935);
+        }
+        
+        /* 评论区样式 */
+        .comments-section {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 8px 32px rgba(0, 5, 15, 0.5);
+            border: 1px solid rgba(64, 224, 208, 0.15);
+        }
+        
+        .comment-form {
+            background: rgba(25, 35, 70, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #bbdefb;
+            font-size: 1.1rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            background: rgba(10, 15, 35, 0.7);
+            color: #e0e0ff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: #29b6f6;
+            box-shadow: 0 0 10px rgba(41, 182, 246, 0.3);
+        }
+        
+        textarea.form-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+        
+        .comments-container {
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .comment {
+            background: rgba(25, 35, 70, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            position: relative;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(79, 195, 247, 0.2);
+        }
+        
+        .comment-author {
+            font-size: 1.2rem;
+            color: #4fc3f7;
+            font-weight: bold;
+        }
+        
+        .comment-date {
+            font-size: 0.9rem;
+            color: #81d4fa;
+            opacity: 0.7;
+        }
+        
+        .comment-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #e0e0ff;
+        }
+        
+        .comment-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .comment-action {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #81d4fa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .comment-action:hover {
+            color: #4fc3f7;
+        }
+        
+        .no-comments {
+            text-align: center;
+            padding: 30px;
+            color: #81d4fa;
+            font-size: 1.2rem;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #81d4fa;
+            font-size: 0.95rem;
+            background: rgba(10, 15, 30, 0.7);
+            margin-top: 40px;
+            border-top: 1px solid rgba(79, 195, 247, 0.2);
+        }
+        
+        .thanks {
+            font-size: 1.1rem;
+            color: #4fc3f7;
+            margin-bottom: 15px;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .disclaimer {
+            max-width: 800px;
+            margin: 15px auto 0;
+            padding: 15px;
+            background: rgba(25, 35, 70, 0.5);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            font-size: 0.9rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 10, 20, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(145deg, #0f172a, #1e293b);
+            width: 90%;
+            max-width: 700px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            background: rgba(25, 35, 70, 0.9);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(79, 195, 247, 0.3);
+        }
+        
+        .modal-title {
+            font-size: 2rem;
+            color: #4fc3f7;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+        
+        .modal-period {
+            color: #81d4fa;
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .detail-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed rgba(79, 195, 247, 0.2);
+        }
+        
+        .detail-title {
+            font-size: 1.3rem;
+            color: #29b6f6;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .detail-title i {
+            margin-right: 10px;
+        }
+        
+        .detail-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #e0e0ff;
+        }
+        
+        .rating-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .rating-item {
+            background: rgba(25, 35, 70, 0.7);
+            padding: 12px 15px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 180px;
+        }
+        
+        .rating-label {
+            font-size: 0.95rem;
+            color: #81d4fa;
+            margin-bottom: 5px;
+        }
+        
+        .rating-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+        
+        .no-detail {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .no-detail i {
+            font-size: 4rem;
+            color: #f44336;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+        
+        .no-detail h3 {
+            font-size: 1.8rem;
+            color: #ff9800;
+            margin-bottom: 15px;
+        }
+        
+        .no-detail p {
+            font-size: 1.1rem;
+            color: #bbdefb;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        /* 新增的置顶按钮样式 */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2962ff, #2979ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(41, 121, 255, 0.4);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(41, 121, 255, 0.6);
+        }
+        
+        .scroll-top i {
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* 新增的合作信息样式 */
+        .collaboration {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 15px;
+            background: rgba(25, 35, 70, 0.5);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            font-size: 1.1rem;
+            color: #81d4fa;
+            margin-top: 40px;
+        }
+        
+        .collaboration strong {
+            color: #4fc3f7;
+        }
+        
+        /* 新增的作者说明样式 */
+        .author-statement {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 8px 32px rgba(0, 5, 15, 0.5);
+            border: 1px solid rgba(64, 224, 208, 0.15);
+        }
+        
+        .author-statement h2 {
+            font-size: 1.8rem;
+            color: #29b6f6;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-statement h2 i {
+            margin-right: 15px;
+        }
+        
+        .author-statement p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e0e0ff;
+            margin-bottom: 15px;
+        }
+        
+        .author-statement .highlight {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        .support-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #ff9800, #ff5722);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .support-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
+        }
+        
+        .support-btn i {
+            margin-right: 8px;
+        }
+        
+        /* 赞助模态框样式 */
+        .sponsor-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 10, 20, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .sponsor-modal-content {
+            background: linear-gradient(145deg, #0f172a, #1e293b);
+            width: 90%;
+            max-width: 900px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            position: relative;
+        }
+        
+        .sponsor-modal-header {
+            background: rgba(25, 35, 70, 0.9);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(79, 195, 247, 0.3);
+        }
+        
+        .sponsor-modal-title {
+            font-size: 2rem;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .sponsor-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .sponsor-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .sponsor-modal-body {
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .sponsor-qr {
+            text-align: center;
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .sponsor-qr img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .sponsor-qr p {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #bbdefb;
+        }
+        
+        .sponsor-info {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .sponsor-info h3 {
+            color: #29b6f6;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sponsor-info h3 i {
+            margin-right: 10px;
+        }
+        
+        .sponsor-info ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        .sponsor-info li {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #e0e0ff;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .sponsor-info li:before {
+            content: "•";
+            color: #ffd700;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -3px;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(79, 195, 247, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(79, 195, 247, 0.8), 0 0 30px rgba(41, 182, 246, 0.6);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .players-container {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+            
+            .tab {
+                padding: 10px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .modal-title {
+                font-size: 1.6rem;
+            }
+            
+            .rating-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .sponsor-modal-body {
+                flex-direction: column;
+            }
+            
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-pattern"></div>
+    
+    <!-- 置顶滚动按钮 -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <div class="header">
+        <div class="author">作者：八仙 （又作 Ba^Xian）</div>
+        <h1>身法人物图鉴</h1>
+        <p class="subtitle">2014年—2025年全服最有影响力的身法玩家，排名因素：所处时代水平，身法界贡献 人品 人气 等等</p>
+    </div>
+    
+    <div class="nav-container">
+        <div class="nav-tabs">
+            <div class="tab active" data-target="variation">变异solo</div>
+            <div class="tab" data-target="hide-seek">躲猫猫solo</div>
+            <div class="tab" data-target="extreme">极限跳跃</div>
+            <div class="tab" data-target="jump-points">跳点</div>
+            <div class="tab" data-target="honorary">荣誉提名</div>
+            <div class="tab" data-target="detail-players">详情人物一览表</div>
+        </div>
+    </div>
+    
+    <div class="search-container">
+        <input type="text" class="search-box" id="searchInput" placeholder="搜索身法玩家...">
+        <div class="search-icon"><i class="fas fa-search"></i></div>
+    </div>
+    
+    <div class="content-container">
+        <div class="section" id="variation">
+            <h2 class="section-title"><i class="fas fa-running"></i> 变异solo</h2>
+            <div class="players-container">
+                <!-- 变异solo玩家将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <div class="section" id="hide-seek">
+            <h2 class="section-title"><i class="fas fa-eye-slash"></i> 躲猫猫solo</h2>
+            <div class="players-container">
+                <!-- 躲猫猫solo玩家将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <div class="section" id="extreme">
+            <h2 class="section-title"><i class="fas fa-mountain"></i> 极限跳跃</h2>
+            <div class="players-container">
+                <!-- 极限跳跃玩家将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <div class="section" id="jump-points">
+            <h2 class="section-title"><i class="fas fa-arrows-alt-v"></i> 跳点</h2>
+            <div class="players-container">
+                <!-- 跳点玩家将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <div class="section" id="honorary">
+            <h2 class="section-title"><i class="fas fa-award"></i> 荣誉提名</h2>
+            <div class="players-container">
+                <!-- 荣誉提名玩家将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <div class="section" id="detail-players">
+            <h2 class="section-title"><i class="fas fa-users"></i> 详情人物一览表</h2>
+            <div class="players-container">
+                <!-- 所有玩家将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <!-- 新增的评分系统 -->
+        <div class="section rating-system" id="rating-system">
+            <h2 class="section-title"><i class="fas fa-star-half-alt"></i> 玩家评分系统</h2>
+            <p style="margin-bottom: 20px; color: #bbdefb; line-height: 1.6;">
+                为没有详细评价的玩家打分！您的评分将帮助完善身法人物图鉴，为其他玩家提供参考。
+            </p>
+            <div class="rating-form">
+                <div class="rating-item">
+                    <label class="rating-label">人品:</label>
+                    <div class="rating-stars" data-category="人品">
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                    </div>
+                </div>
+                <div class="rating-item">
+                    <label class="rating-label">素质:</label>
+                    <div class="rating-stars" data-category="素质">
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                    </div>
+                </div>
+                <div class="rating-item">
+                    <label class="rating-label">技术:</label>
+                    <div class="rating-stars" data-category="技术">
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                    </div>
+                </div>
+                <div class="rating-item">
+                    <label class="rating-label">创作领域:</label>
+                    <div class="rating-stars" data-category="创作领域">
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                    </div>
+                </div>
+                <div class="rating-item">
+                    <label class="rating-label">身法天赋:</label>
+                    <div class="rating-stars" data-category="身法天赋">
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                    </div>
+                </div>
+                <div class="rating-item">
+                    <label class="rating-label">知名度:</label>
+                    <div class="rating-stars" data-category="知名度">
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                        <i class="far fa-star rating-star"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="rating-actions">
+                <button class="rating-btn cancel">取消</button>
+                <button class="rating-btn">提交评分</button>
+            </div>
+        </div>
+        
+        <!-- 新增的评论区 -->
+        <div class="comments-section">
+            <h2 class="section-title"><i class="fas fa-comments"></i> 玩家评论区</h2>
+            <div class="comment-form">
+                <div class="form-group">
+                    <label class="form-label">您的昵称</label>
+                    <input type="text" class="form-input" id="commentName" placeholder="输入昵称">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">您的评论</label>
+                    <textarea class="form-input" id="commentContent" placeholder="写下您的评论..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button class="rating-btn cancel">清空</button>
+                    <button class="rating-btn" id="submitComment">发布评论</button>
+                </div>
+            </div>
+            
+            <div class="comments-container" id="commentsList">
+                <div class="no-comments">
+                    <i class="fas fa-comment-slash" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                    <p>暂无评论，成为第一个评论者！</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 新增的作者说明 -->
+        <div class="author-statement">
+            <h2><i class="fas fa-info-circle"></i> 关于身法论坛</h2>
+            <p>我们旨在完善一个功能完备的身法论坛，具备在线评论、实时分享、账号登录等功能。此工程量巨大，但我们相信<strong class="highlight">路虽远，行则将至</strong>。</p>
+            <p>我们在现有基础上砥砺前行，同时我们非常希望得到您的帮助。您的任何建议和技术或经济上的支持，我们都十分诚恳地接受。</p>
+            <p>以下是我们的赞助码，感谢各位老板的打赏和支持！我们将罗列所有对我们提供帮助者的名单。</p>
+            <p>您有任何的问题可以联系作者：<strong class="highlight">QQ 3111628191</strong></p>
+            
+            <button class="support-btn" id="supportBtn">
+                <i class="fas fa-hand-holding-heart"></i>帮助他
+            </button>
+        </div>
+    </div>
+    
+    <!-- 新增的合作信息 -->
+    <div class="collaboration">
+        <p><strong>合作：</strong> bai</p>
+    </div>
+    
+    <div class="footer">
+        <div class="thanks">特别鸣谢：无言</div>
+        <div>名单来源剑圣，joker协助</div>
+        <div class="copyright">版权所有者：八仙</div>
+        <div class="disclaimer">
+            篇幅与制作水平有限，所涉人物并不全面，导致一些玩家未能录入，后续不断完善，谢谢
+        </div>
+    </div>
+    
+    <!-- 玩家详情模态框 -->
+    <div class="modal" id="playerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalPlayerName"></h2>
+                <div class="modal-period" id="modalPlayerPeriod"></div>
+                <div class="modal-close" id="closeModal"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="modal-body" id="modalPlayerDetails">
+                <!-- 玩家详情将通过JS动态生成 -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- 赞助二维码模态框 -->
+    <div class="sponsor-modal" id="sponsorModal">
+        <div class="sponsor-modal-content">
+            <div class="sponsor-modal-header">
+                <h2 class="sponsor-modal-title">支持身法论坛</h2>
+                <div class="sponsor-modal-close" id="closeSponsorModal"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="sponsor-modal-body">
+                <div class="sponsor-qr">
+                    <img src="./微信图片_2025-06-01_230032_446.jpg" height = "150" width="150" alt="微信赞助二维码">
+                    <p>微信赞助二维码</p>
+                </div>
+                <div class="sponsor-qr">
+                    <img src="./微信图片_2025-06-01_230041_342.jpg" height = "150" width="150" alt="支付宝赞助二维码">
+                    <p>支付宝赞助二维码</p>
+                </div>
+                <div class="sponsor-info">
+                    <h3><i class="fas fa-gift"></i> 赞助者权益</h3>
+                    <ul>
+                        <li>您的名字将出现在网站赞助者名单中</li>
+                        <li>获得身法论坛VIP会员资格（开发中）</li>
+                        <li>优先体验新功能</li>
+                        <li>专属客服支持</li>
+                        <li>参与身法论坛发展决策</li>
+                    </ul>
+                    <h3 style="margin-top: 30px;"><i class="fas fa-hands-helping"></i> 其他支持方式</h3>
+                    <ul>
+                        <li>技术开发：前端/后端/UI设计</li>
+                        <li>内容贡献：身法教程/技巧分享</li>
+                        <li>社区运营：管理/活动组织</li>
+                        <li>推广宣传：社交媒体分享</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 玩家数据
+        const playersData = {
+            // 变异solo
+            variation: [
+                { name: "蛋糕", period: "2015-2023" },
+                { name: "堪阳", period: "2014-2016" },
+                { name: "闪电", period: "2015-2018" },
+                { name: "沉默", period: "2016-2019" },
+                { name: "幻影", period: "2014-2020" },
+                { name: "逍遥", period: "2015-2018" },
+                { name: "罗腾", period: "2018-2023" },
+                { name: "信仰", period: "2017-2021" },
+                { name: "泡泡", period: "2015-2022" },
+                { name: "文静", period: "2016-2019" }
+            ],
+            // 躲猫猫solo
+            hideSeek: [
+                { name: "砖家", period: "2016-2019" },
+                { name: "囡囡", period: "2017-2020" },
+                { name: "叁年", period: "2016-2021" },
+                { name: "cc", period: "2017-2020" },
+                { name: "消逝", period: "2016-2019" },
+                { name: "陌白", period: "2018-2022" },
+                { name: "迷城", period: "2019-2023" },
+                { name: "joker", period: "2016-2024" },
+                { name: "雪漫", period: "2017-2020" },
+                { name: "茉莉", period: "2018-2021" }
+            ],
+            // 极限跳跃
+            extreme: [
+                { name: "嘉然", period: "2016-2020" },
+                { name: "泡泡", period: "2015-2022" },
+                { name: "迷城", period: "2019-2023" },
+                { name: "生化", period: "2017-2021" },
+                { name: "秋天", period: "2018-2022" },
+                { name: "蛋糕", period: "2015-2023" },
+                { name: "苍穹", period: "2017-2022" },
+                { name: "剑圣", period: "2015-2025" },
+                { name: "幻影", period: "2014-2020" },
+                { name: "狙击助攻王", period: "2016-2018" }
+            ],
+            // 跳点
+            jumpPoints: [
+                { name: "情殇", period: "2016-2018" },
+                { name: "八仙", period: "2017-2018" },
+                { name: "白痴", period: "2015-2017" },
+                { name: "罗腾", period: "2018-2023" },
+                { name: "身舟", period: "2016-2019" },
+                { name: "不败", period: "2014-2015" },
+                { name: "彭旭杰", period: "2017-2020" },
+                { name: "小傻瓜", period: "2018-2021" },
+                { name: "玄火", period: "2014-2015" },
+                { name: "lyy", period: "2014-2016" }
+            ],
+            // 荣誉提名
+            honorary: [
+                "巅峰", "冷兄", "至尊", "台风", "星空", "窦比", "藤蔓", "冻K", "装逼菌", "童香月影", 
+                "益达", "水果语愿", "黑桃", "墨竹", "身帝EY", "乌龟", "灭绝", "孤毒", "球蛋", 
+                "传说", "落雨流年", "蛋蛋", "斜阳旧梦", "冷鬼", "玄奘", "Nova", "钢盔", "瞬灭", 
+                "炎魔", "红殇", "浪花极限", "陌恋", "药膏", "小强", "十六", "面对", "叁枪", 
+                "太上道祖", "孤城", "浪疯", "花影", "百墨殇", "比轩宝", "汐轩", "泡泡身法", "演戏变异", 
+                "Zozo", "猴子", "冷栗", "水饺", "笙歌", "皇兄", "巴登", "博兽", "久宝龙", "林史努比", 
+                "红星", "身囚", "晓乐", "龙阳", "星痕", "瞳神", "教授", "怅然", "杵七", "温溺", 
+                "吹散殇", "简单", "肥字", "魔术", "旋律帝风", "纯之风", "朦呱咯", "机器人", "残影", 
+                "初遇", "月亮", "月亮神", "餐残", "柠檬", "天空", "阿岑", "残阳", "冈本d1", "包皮", 
+                "牢外译官", "瑜瑜梅", "普罗"
+            ],
+            // 所有有详情的人物名单（从word文档中提取）
+            detailedPlayers: [
+                "冷兄", "巅峰", "不败", "虐心", "lyy", "玄火", "久远", "蛋糕", "小妖", "语愿", 
+                "耀世", "玄刃", "至尊", "狙击助攻王", "joker", "苍穹", "剑圣", "腾蔓", "江南", 
+                "雾岛董香", "星空", "情殇", "传说", "冷鬼", "胖老胡", "凌泽", "番茄", "迷城", 
+                "台风", "八仙", "罗腾", "无言", "Fong zozo", "三枪", "信仰", "钢盔", "小马", "苏黎"
+            ]
+        };
+
+        // 玩家详情数据
+        const playerDetails = {
+            "冷兄": {
+                period: "2014-2022",
+                details: {
+                    "人品": "9/10",
+                    "素质": "10/10",
+                    "技术": "8/10",
+                    "创作领域": "10/10",
+                    "身法天赋": "8/10",
+                    "知名度": "10/10",
+                    "评价": "大部分身法玩家的启蒙，名副其实的身法第一人！早期第一位在生死狙击内自学发布身法的玩家，极度投入并前后创作数百部身法作品，在最大程度发展了身法。"
+                }
+            },
+            "巅峰": {
+                period: "2014-2015",
+                details: {
+                    "人品": "7/10",
+                    "素质": "5/10",
+                    "技术": "10/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "9/10",
+                    "知名度": "9/10",
+                    "评价": "14年最强弹跳，前国内KZ技术型玩家，转向与生死狙击游玩。创作多部身法作品，在圈内有着最强身法之称，曾对冷兄有过大量指点。"
+                }
+            },
+            "不败": {
+                period: "2014-2015",
+                details: {
+                    "品行": "0/0",
+                    "技术": "10/10",
+                    "创作领域": "0/0",
+                    "身法天赋": "0/0",
+                    "知名度": "7/10",
+                    "评价": "据悉为老引擎时期长跳最强者！14 15时随手可做到长跳火车！据知情人所述，有着15年小刀LJ火车的战绩！素材极为少见，知名度仅限于14 15的身法界内流传。"
+                }
+            },
+            "虐心": {
+                period: "2014-2016",
+                details: {
+                    "品行": "0/0",
+                    "技术": "9/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "0/0",
+                    "知名度": "9/10",
+                    "评价": "活跃与身法界，与冷兄丶巅峰为同时期的身法创作者，发布过身法作品与身法教学，在同时期，创作质量和投入高于巅峰，视频质量极高，持平冷兄的创作水准。"
+                }
+            },
+            "lyy": {
+                period: "2014-2016",
+                details: {
+                    "品行": "0/0",
+                    "技术": "9/10",
+                    "创作领域": "0/0",
+                    "身法天赋": "0/0",
+                    "知名度": "8/10",
+                    "评价": "早期身法圈的超活跃玩家，弹跳和长跳都有极高水平，个人低调和善，部分早期身法玩家的领路人，无数身法玩家所知晓的跳点强者。老引擎与旧引擎的主要代言人之一！"
+                }
+            },
+            "玄火": {
+                period: "2014-2015",
+                details: {
+                    "品行": "0/0",
+                    "技术": "10/10",
+                    "创作领域": "0/0",
+                    "身法天赋": "0/0",
+                    "知名度": "7/10",
+                    "评价": "可追溯的身法早期最强长跳，身法玩家玄刃的师傅，长跳水平几乎为当时第一人，跳出无数真正意义神仙级的长跳身法，15年早期便做到了小刀LJA小，其强大程度甚至跨时代了数年！"
+                }
+            },
+            "久远": {
+                period: "2015-2016",
+                details: {
+                    "品行": "0/0",
+                    "技术": "10/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "0/0",
+                    "知名度": "8/10",
+                    "评价": "连跳速度飞快，几乎跑出极限速的强者，变异solo中体现出其极度强悍的水准，虽然已经被限速，但其空速和身法表现极为张扬霸道！可惜早在16年时选择了退游。"
+                }
+            },
+            "蛋糕": {
+                period: "2015-2023",
+                details: {
+                    "人品": "1/10",
+                    "素质": "1/10",
+                    "技术": "9/10",
+                    "创作领域": "10/10",
+                    "身法天赋": "8/10",
+                    "知名度": "10/10",
+                    "评价": "影响力与冷兄是唯二的存在，有着KZ基础15年晋升为强者。但品行恶劣，评论看不起KZ佬被KZ玩家暴虐。身法圈主要强者之一，双蹲的首发和变相的首次提及者。"
+                }
+            },
+            "小妖": {
+                period: "2015-2017",
+                details: {
+                    "人品": "0/10",
+                    "素质": "2/10",
+                    "技术": "5/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "4/10",
+                    "知名度": "9/10",
+                    "评价": "整个人都是过失和不正常的存在。初期模仿冷兄手法创作，15年时名为小妖女，自称女生时被蛋糕收徒，巧用女生人设吸引粉丝关注。后突然改名禽兽妖变回男性，并继续和蛋糕合作身法教学。"
+                }
+            },
+            "语愿": {
+                period: "2015-2020",
+                details: {
+                    "品行": "0/0",
+                    "技术": "8/10",
+                    "创作领域": "7/10",
+                    "身法天赋": "8/10",
+                    "知名度": "8/10",
+                    "评价": "早期身法圈活跃玩家之一，大量跳点以及参与了跳图，曾记录与蛋糕只有微毫差距，整体投入远远少于蛋糕，实力是15/16主要强者之一，16年时淡游，后半回归半游玩。"
+                }
+            },
+            "耀世": {
+                period: "2015-2018",
+                details: {
+                    "品行": "0/0",
+                    "技术": "9/10",
+                    "创作领域": "6/10",
+                    "身法天赋": "9/10",
+                    "知名度": "7/10",
+                    "评价": "弹跳与长跳的跳点选手，限速时期跳出了老引擎级别的身法点！对弹跳有着极大水准，与lyy等老牌玩家有过大量交际。"
+                }
+            },
+            "玄刃": {
+                period: "2015-2018",
+                details: {
+                    "品行": "0/0",
+                    "技术": "9/10",
+                    "创作领域": "6/10",
+                    "身法天赋": "9/10",
+                    "知名度": "7/10",
+                    "评价": "少见的顶级WA长跳选手，玄火的徒弟。跳出超多的极限长跳点，早在17年便达到了LJ253！跳点领域有过许多演绎。后因学习退游（现今短暂回游）。"
+                }
+            },
+            "至尊": {
+                period: "2016-2018",
+                details: {
+                    "人品": "10/10",
+                    "素质": "9/10",
+                    "技术": "10/10",
+                    "创作领域": "9/10",
+                    "身法天赋": "8/10",
+                    "知名度": "9/10",
+                    "评价": "进步最快的玩家之一，早期便拥有上万粉丝，身法圈史粉丝量最多创作者之一，极度勤奋。极度反对不良攀比风气，创作数百部身法作品，至尊身法群一度达千人。"
+                }
+            },
+            "狙击助攻王": {
+                period: "2016-2018",
+                details: {
+                    "人品": "7/10",
+                    "素质": "5/10",
+                    "技术": "10/10",
+                    "创作领域": "0/0",
+                    "身法天赋": "10/10",
+                    "知名度": "9/10",
+                    "评价": "Flash跳图第一人！长期霸占几乎全地图WR，开宏跳图第一人，高HZ屏第一人。极度神秘的玩家，严厉抨击转载他开宏作品的博主，极为偏执与神秘，未主动发布过任何身法作品。"
+                }
+            },
+            "joker": {
+                period: "2016-2024",
+                details: {
+                    "品行": "9/10",
+                    "技术": "10/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "10/10",
+                    "知名度": "9/10",
+                    "评价": "参与生死狙击身法圈最久玩家，最强的主要玩家之一，全能型身法玩家，同时为进步最快的玩家之一，创作上百部身法作品，在身法圈方面都有极高造诣。"
+                }
+            },
+            "苍穹": {
+                period: "2017-2022",
+                details: {
+                    "品行": "8/10",
+                    "技术": "10/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "10/10",
+                    "知名度": "9/10",
+                    "评价": "他的存在几乎是为极限跳跃而生，独挡级跳图玩家。在低帧flash的情况下与高帧的蛋糕在跳图领域上做到了五五开！高帧高配后更是如入无人之境！对攀岩节奏的有着完美的把控！"
+                }
+            },
+            "剑圣": {
+                period: "2015-2025",
+                details: {
+                    "品行": "8/10",
+                    "技术": "10/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "10/10",
+                    "知名度": "8/10",
+                    "评价": "低帧至高帧时期的最强玩家之一，身法生涯在圈内极为知名！对于身法理解和空速分配、脚本调配等各方面皆是大师，跳点跳图的全才。"
+                }
+            },
+            "腾蔓": {
+                period: "2017-2019",
+                details: {
+                    "品行": "8/10",
+                    "技术": "10/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "10/10",
+                    "知名度": "8/10",
+                    "评价": "跳点领域全方面的顶级身法，跳点领域天赋奇才！最强的低帧跳点玩家之一，侧跳倒跳长跳弹跳等皆为低帧时期强者！神仙级点位无数！"
+                }
+            },
+            "江南": {
+                period: "2018-2021",
+                details: {
+                    "品行": "9/10",
+                    "技术": "10/10",
+                    "创作领域": "7/10",
+                    "身法天赋": "10/10",
+                    "知名度": "8/10",
+                    "评价": "圈内几乎公然最强高帧弹跳玩家，极致的单弹身法点无数。弹跳领域绝对意义的奇才！跳点领域的公认最强者之一！"
+                }
+            },
+            "雾岛董香": {
+                period: "2016-2019",
+                details: {
+                    "品行": "8/10",
+                    "技术": "9/10",
+                    "创作领域": "6/10",
+                    "身法天赋": "8/10",
+                    "知名度": "7/10",
+                    "评价": "失重图以及喷泉弹跳玩家。据悉，曾在Flash低帧时期一度mp5弹跳上山！身法圈少见的女玩家，极为低调又很是活跃的身法玩家，热衷与身法房跳点游玩。"
+                }
+            },
+            "星空": {
+                period: "2017-2019",
+                details: {
+                    "品行": "9/10",
+                    "技术": "8/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "8/10",
+                    "知名度": "8/10",
+                    "评价": "身法圈内极为活跃的主要玩家之一，初期为新手，慢慢逐渐进步进入一线梯队。爱拍临关闭前坚持到了最后！后退身法圈仅代剪和代发了身法玩家作品。剪辑水平几乎是身法圈独一档的存在。"
+                }
+            },
+            "情殇": {
+                period: "2016-2018",
+                details: {
+                    "品行": "8/10",
+                    "技术": "10/10",
+                    "创作领域": "6/10",
+                    "身法天赋": "10/10",
+                    "知名度": "7/10",
+                    "评价": "低帧时期最强长跳玩家！A小身法点/LJ火车在低帧时期便手秒过！据说有着低帧三十连长跳火车的战绩。低帧时期秒杀当时的长跳极限点！"
+                }
+            },
+            "传说": {
+                period: "2015-2022",
+                details: {
+                    "品行": "9/10",
+                    "技术": "10/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "10/10",
+                    "知名度": "8/10",
+                    "评价": "低帧至高帧时期的强大玩家，低帧跳图主要的最强者之一。对身法极有天赋和水准，为人友好。KZ领域和身法投入皆有大量成就，不失为身法全才，长跳弹跳跳图皆是为当时最顶级水平。"
+                }
+            },
+            "冷鬼": {
+                period: "2016-2021",
+                details: {
+                    "品行": "4/10",
+                    "技术": "9/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "8/10",
+                    "知名度": "8/10",
+                    "评价": "早期圈内极为活跃，发布多部身法作品。后单方面引战谩骂至尊，被至尊公开其败坏素质同时增加热度。结束不久自称癌症将死，时任友人对其祈祷后洗白。大肆收买人心，在高帧时期晋升为一线水准并活跃身法圈。"
+                }
+            },
+            "胖老胡": {
+                period: "2016-2018",
+                details: {
+                    "品行": "8/10",
+                    "技术": "9/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "8/10",
+                    "知名度": "8/10",
+                    "评价": "早期身法创作者之一，16年17年频出身法。17年时跳出多个强势身法极限点，并跳出了平弹A坑，flash时期就跳出许多极限的身法点。早期在身法圈内有一定的人气，后转为解说领域，淡出了身法圈。"
+                }
+            },
+            "凌泽": {
+                period: "2016-2018",
+                details: {
+                    "品行": "8/10",
+                    "技术": "10/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "9/10",
+                    "知名度": "8/10",
+                    "评价": "弹跳和长跳的强者，空速极为独特且霸道。低帧时期跳点演绎出当时的极限身法。创作方面多为精品，长跳分配时极有的观赏性。"
+                }
+            },
+            "番茄": {
+                period: "2017-2019",
+                details: {
+                    "品行": "10/10",
+                    "技术": "9/10",
+                    "创作领域": "7/10",
+                    "身法天赋": "9/10",
+                    "知名度": "7/10",
+                    "评价": "跳点圈的一代强者，弹跳卡极限点与边距身法。低帧时期跳点的最强顶级玩家之一，为人极为友善。探索演绎出无数极限弹跳点，对跳点的造诣几乎独一梯队！"
+                }
+            },
+            "迷城": {
+                period: "2019-2023",
+                details: {
+                    "品行": "3/10",
+                    "技术": "9/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "8/10",
+                    "知名度": "8/10",
+                    "评价": "捷径探索及双蹲的演示极致，对跳图极度投入，曾几度WR占榜。后宏装手动并代跳要挟他人金钱塌房，迫于舆论压力公开道歉。"
+                }
+            },
+            "台风": {
+                period: "2019-2024",
+                details: {
+                    "品行": "8/10",
+                    "技术": "10/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "10/10",
+                    "知名度": "9/10",
+                    "评价": "绝对意义上的身法天才，从小时跳跃的素材便可看出其天赋与技术。近两年内身法圈内的顶尖技术代表。程序开发与脚本领域的大师！身法圈内璀璨的新星！"
+                }
+            },
+            "八仙": {
+                period: "2017-2018",
+                details: {
+                    "人品": "9/10",
+                    "技术": "10/10",
+                    "创作领域": "7/10",
+                    "身法天赋": "8/10",
+                    "知名度": "6/10",
+                    "评价": "长跳的最强者之一，地速与空速分配水平几乎极致！18年时研发并演绎出许多长跳点，首位手枪长跳后花园＋小刀长跳上山＋黑弩长跳B门等大量神级身法。"
+                }
+            },
+            "罗腾": {
+                period: "2018-2023",
+                details: {
+                    "品行": "10/10",
+                    "技术": "10/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "10/10",
+                    "知名度": "9/10",
+                    "评价": "高帧最强长跳玩家，为人友善且为身法奇才！弹跳躲猫猫及和跳图也都着顶尖水平，跨引擎的CF里也是十足水平的高手！技术和影响力与人品并存的顶级选手！断崖式记录无数！"
+                }
+            },
+            "无言": {
+                period: "2020-2025",
+                details: {
+                    "品行": "10/10",
+                    "技术": "9/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "10/10",
+                    "知名度": "8/10",
+                    "评价": "入坑身法较晚的全能大神！弹跳与实战强者，破点新时代身法启蒙创作者之一。发布过人气超高的身法教程，多次协助圈内新手解决程序与设备问题！全方面程序领域的大师，变异游乐屋中的超强玩家！"
+                }
+            },
+            "Fong zozo": {
+                period: "2017-2018",
+                details: {
+                    "品行": "0/0",
+                    "技术": "10/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "10/10",
+                    "知名度": "9/10",
+                    "评价": "拥有KZ基础，游玩时间极短便成为跳图最强者之一。17丶18年时与狙王丶蛋糕活跃于跳图，与苍穹丶至尊丶蛋糕的对比上互有胜负，临近高帧时基本消失。"
+                }
+            },
+            "三枪": {
+                period: "2017-2019",
+                details: {
+                    "品行": "0/0",
+                    "技术": "9/10",
+                    "创作领域": "7/10",
+                    "身法天赋": "8/10",
+                    "知名度": "7/10",
+                    "评价": "全能型玩家之一，跳图丶连跳丶弹长跳都有极高的水平，身法圈少有的活跃且偏执的玩家，强大的同时性情矛盾，有过许多的错误和反省。"
+                }
+            },
+            "信仰": {
+                period: "2017-2021",
+                details: {
+                    "品行": "0/0",
+                    "技术": "9/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "9/10",
+                    "知名度": "8/10",
+                    "评价": "高帧强者，身法圈中期的身法强者之一，跳点能有极高水准。身法作品质量极高，17至21内在身法圈极为活跃，KZ也同样有着相应水准。"
+                }
+            },
+            "钢盔": {
+                period: "2017-2019",
+                details: {
+                    "品行": "0/0",
+                    "技术": "9/10",
+                    "创作领域": "0/0",
+                    "身法天赋": "9/10",
+                    "知名度": "8/10",
+                    "评价": "跳图和跳点双方面的奇才，跳出多次令人惊叹的记录，极为强大的跳图玩家，在低帧与高帧时期皆有极大的造诣。高帧时期活跃度想对减少。"
+                }
+            },
+            "小马": {
+                period: "2019-2025",
+                details: {
+                    "品行": "0/0",
+                    "技术": "10/10",
+                    "创作领域": "0/0",
+                    "身法天赋": "9/10",
+                    "知名度": "6/10",
+                    "评价": "入坑身法较晚的玩家，新时代的顶尖躲猫猫水平。手动＋宏双方面的连跳水准，天赋极佳的后起之秀。"
+                }
+            },
+            "苏黎": {
+                period: "2019-2025",
+                details: {
+                    "品行": "0/0",
+                    "技术": "9/10",
+                    "创作领域": "8/10",
+                    "身法天赋": "9/10",
+                    "知名度": "8/10",
+                    "评价": "近两年内少有的身法圈大神并有着数部身法作品创作！技术与剪辑水平俱佳，身法圈内的活跃玩家。"
+                }
+            }
+        };
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            // 渲染各区域玩家
+            renderPlayers('variation', playersData.variation);
+            renderPlayers('hide-seek', playersData.hideSeek);
+            renderPlayers('extreme', playersData.extreme);
+            renderPlayers('jump-points', playersData.jumpPoints);
+            
+            // 渲染荣誉提名
+            const honoraryContainer = document.querySelector('#honorary .players-container');
+            playersData.honorary.forEach(player => {
+                const playerCard = createPlayerCard(player, "荣誉提名", false);
+                honoraryContainer.appendChild(playerCard);
+            });
+            
+            // 渲染详情人物一览表
+            const detailPlayersContainer = document.querySelector('#detail-players .players-container');
+            
+            // 收集所有人物（去重）
+            const allPlayersSet = new Set();
+            
+            // 添加各个分类的玩家
+            playersData.variation.forEach(p => allPlayersSet.add(p.name));
+            playersData.hideSeek.forEach(p => allPlayersSet.add(p.name));
+            playersData.extreme.forEach(p => allPlayersSet.add(p.name));
+            playersData.jumpPoints.forEach(p => allPlayersSet.add(p.name));
+            playersData.honorary.forEach(p => allPlayersSet.add(p));
+            playersData.detailedPlayers.forEach(p => allPlayersSet.add(p));
+            
+            // 转换为数组并排序
+            const allPlayersArray = Array.from(allPlayersSet).sort((a, b) => a.localeCompare(b, 'zh-CN'));
+            
+            // 渲染详情人物一览表
+            allPlayersArray.forEach(playerName => {
+                // 获取玩家活跃时期
+                let period = "未知";
+                if (playerDetails[playerName]) {
+                    period = playerDetails[playerName].period;
+                } else {
+                    // 尝试从其他分类中获取时期
+                    const foundInVariation = playersData.variation.find(p => p.name === playerName);
+                    const foundInHideSeek = playersData.hideSeek.find(p => p.name === playerName);
+                    const foundInExtreme = playersData.extreme.find(p => p.name === playerName);
+                    const foundInJumpPoints = playersData.jumpPoints.find(p => p.name === playerName);
+                    
+                    if (foundInVariation) period = foundInVariation.period;
+                    else if (foundInHideSeek) period = foundInHideSeek.period;
+                    else if (foundInExtreme) period = foundInExtreme.period;
+                    else if (foundInJumpPoints) period = foundInJumpPoints.period;
+                    else period = "荣誉提名";
+                }
+                
+                // 判断是否为详情人物
+                const isDetailed = playersData.detailedPlayers.includes(playerName);
+                
+                const playerCard = createPlayerCard(playerName, period, isDetailed);
+                detailPlayersContainer.appendChild(playerCard);
+            });
+            
+            // 标签切换功能
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // 移除所有active类
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // 为当前标签添加active类
+                    this.classList.add('active');
+                    
+                    // 滚动到对应区域
+                    const targetId = this.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            
+            // 搜索功能
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.trim().toLowerCase();
+                const allPlayerCards = document.querySelectorAll('.player-card');
+                
+                if (searchTerm === '') {
+                    allPlayerCards.forEach(card => card.style.display = 'block');
+                    return;
+                }
+                
+                allPlayerCards.forEach(card => {
+                    const playerName = card.querySelector('.player-name').textContent.toLowerCase();
+                    if (playerName.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        
+                        // 高亮匹配部分
+                        const nameElement = card.querySelector('.player-name');
+                        const originalName = nameElement.textContent;
+                        const regex = new RegExp(`(${searchTerm})`, 'gi');
+                        const highlighted = originalName.replace(regex, '<span class="highlight">$1</span>');
+                        nameElement.innerHTML = highlighted;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            // 模态框关闭
+            document.getElementById('closeModal').addEventListener('click', function() {
+                document.getElementById('playerModal').style.display = 'none';
+            });
+            
+            // 点击页面其他地方关闭模态框
+            window.addEventListener('click', function(event) {
+                const modal = document.getElementById('playerModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // 星级评分功能
+            const stars = document.querySelectorAll('.rating-star');
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const container = this.parentElement;
+                    const stars = container.querySelectorAll('.rating-star');
+                    const index = Array.from(stars).indexOf(this);
+                    
+                    // 重置所有星星
+                    stars.forEach(s => {
+                        s.classList.remove('fas', 'active');
+                        s.classList.add('far');
+                    });
+                    
+                    // 点亮点击的星星及其之前的星星
+                    for (let i = 0; i <= index; i++) {
+                        stars[i].classList.remove('far');
+                        stars[i].classList.add('fas', 'active');
+                    }
+                });
+            });
+            
+            // 提交评分按钮
+            document.querySelector('.rating-btn:not(.cancel)').addEventListener('click', function() {
+                // 收集评分数据
+                const ratings = {};
+                const ratingContainers = document.querySelectorAll('.rating-stars');
+                
+                ratingContainers.forEach(container => {
+                    const category = container.getAttribute('data-category');
+                    const activeStars = container.querySelectorAll('.rating-star.active').length;
+                    ratings[category] = activeStars;
+                });
+                
+                // 检查是否所有类别都有评分
+                const allRated = Object.values(ratings).every(rating => rating > 0);
+                
+                if (!allRated) {
+                    alert('请为所有类别评分！');
+                    return;
+                }
+                
+                // 在实际应用中，这里会将数据发送到服务器
+                // 这里我们只显示成功消息
+                alert('评分提交成功！感谢您的参与！');
+                
+                // 重置评分
+                resetRatings();
+            });
+            
+            // 取消评分按钮
+            document.querySelector('.rating-btn.cancel').addEventListener('click', resetRatings);
+            
+            // 提交评论功能
+            document.getElementById('submitComment').addEventListener('click', function() {
+                const name = document.getElementById('commentName').value.trim();
+                const content = document.getElementById('commentContent').value.trim();
+                
+                if (!name || !content) {
+                    alert('请填写昵称和评论内容！');
+                    return;
+                }
+                
+                addComment(name, content);
+                
+                // 清空表单
+                document.getElementById('commentName').value = '';
+                document.getElementById('commentContent').value = '';
+            });
+            
+            // 清空评论表单
+            document.querySelector('.comment-form .rating-btn.cancel').addEventListener('click', function() {
+                document.getElementById('commentName').value = '';
+                document.getElementById('commentContent').value = '';
+            });
+            
+            // 加载评论
+            loadComments();
+            
+            // 置顶滚动按钮
+            const scrollTopBtn = document.getElementById('scrollTop');
+            
+            // 监听滚动事件
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+            
+            // 点击置顶按钮
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 赞助按钮
+            document.getElementById('supportBtn').addEventListener('click', function() {
+                document.getElementById('sponsorModal').style.display = 'flex';
+            });
+            
+            // 关闭赞助模态框
+            document.getElementById('closeSponsorModal').addEventListener('click', function() {
+                document.getElementById('sponsorModal').style.display = 'none';
+            });
+            
+            // 点击页面其他地方关闭赞助模态框
+            window.addEventListener('click', function(event) {
+                const modal = document.getElementById('sponsorModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+        
+        // 渲染玩家列表
+        function renderPlayers(sectionId, players) {
+            const container = document.querySelector(`#${sectionId} .players-container`);
+            container.innerHTML = '';
+            
+            players.forEach(player => {
+                const isDetailed = playersData.detailedPlayers.includes(player.name);
+                const playerCard = createPlayerCard(player.name, player.period, isDetailed);
+                container.appendChild(playerCard);
+            });
+        }
+        
+        // 创建玩家卡片
+        function createPlayerCard(name, period, isDetailed = false) {
+            const card = document.createElement('div');
+            card.className = 'player-card';
+            
+            // 添加详情人物特殊样式
+            if (isDetailed) {
+                card.classList.add('detailed');
+            }
+            
+            card.innerHTML = `
+                ${isDetailed ? 
+                    '<div class="stars-container">' + 
+                    '<i class="fas fa-star star"></i>'.repeat(6) + 
+                    '</div>' : 
+                    ''
+                }
+                <div class="player-name">${name}</div>
+                <div class="player-period">${period}</div>
+            `;
+            
+            card.addEventListener('click', function() {
+                showPlayerDetails(name);
+            });
+            
+            return card;
+        }
+        
+        // 显示玩家详情
+        function showPlayerDetails(playerName) {
+            const modal = document.getElementById('playerModal');
+            const nameElement = document.getElementById('modalPlayerName');
+            const periodElement = document.getElementById('modalPlayerPeriod');
+            const detailsElement = document.getElementById('modalPlayerDetails');
+            
+            nameElement.textContent = playerName;
+            
+            // 检查是否有详情数据
+            if (playerDetails[playerName]) {
+                const details = playerDetails[playerName];
+                periodElement.textContent = `活跃时期: ${details.period}`;
+                
+                let detailsHTML = '';
+                
+                // 添加评分项
+                detailsHTML += '<div class="rating-container">';
+                for (const [key, value] of Object.entries(details.details)) {
+                    if (key !== '评价') {
+                        detailsHTML += `
+                            <div class="rating-item">
+                                <div class="rating-label">${key}</div>
+                                <div class="rating-value">${value}</div>
+                            </div>
+                        `;
+                    }
+                }
+                detailsHTML += '</div>';
+                
+                // 添加评价
+                if (details.details['评价']) {
+                    detailsHTML += `
+                        <div class="detail-item">
+                            <h3 class="detail-title"><i class="fas fa-star"></i> 玩家评价</h3>
+                            <div class="detail-content">${details.details['评价']}</div>
+                        </div>
+                    `;
+                }
+                
+                detailsElement.innerHTML = detailsHTML;
+            } else {
+                // 没有详情数据的情况
+                periodElement.textContent = '';
+                detailsElement.innerHTML = `
+                    <div class="no-detail">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>信息未收录</h3>
+                        <p>该人物 "${playerName}" 的详细信息尚未收录，我们的团队正在努力完善资料库，请后续关注更新。</p>
+                    </div>
+                    <div class="rating-form" style="margin-top: 30px;">
+                        <h3 class="detail-title"><i class="fas fa-star"></i> 用户评分</h3>
+                        <p style="margin-bottom: 15px; color: #bbdefb;">为该玩家评分，帮助完善资料库</p>
+                        <div class="rating-form">
+                            <div class="rating-item">
+                                <label class="rating-label">人品:</label>
+                                <div class="rating-stars" data-category="人品">
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                </div>
+                            </div>
+                            <div class="rating-item">
+                                <label class="rating-label">素质:</label>
+                                <div class="rating-stars" data-category="素质">
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                </div>
+                            </div>
+                            <div class="rating-item">
+                                <label class="rating-label">技术:</label>
+                                <div class="rating-stars" data-category="技术">
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                </div>
+                            </div>
+                            <div class="rating-item">
+                                <label class="rating-label">创作领域:</label>
+                                <div class="rating-stars" data-category="创作领域">
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                </div>
+                            </div>
+                            <div class="rating-item">
+                                <label class="rating-label">身法天赋:</label>
+                                <div class="rating-stars" data-category="身法天赋">
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                </div>
+                            </div>
+                            <div class="rating-item">
+                                <label class="rating-label">知名度:</label>
+                                <div class="rating-stars" data-category="知名度">
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                    <i class="far fa-star rating-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rating-actions">
+                            <button class="rating-btn cancel">取消</button>
+                            <button class="rating-btn submit-player-rating">提交评分</button>
+                        </div>
+                    </div>
+                `;
+
+                // 为模态框中的评分添加事件
+                const modalStars = detailsElement.querySelectorAll('.rating-star');
+                modalStars.forEach(star => {
+                    star.addEventListener('click', function() {
+                        const container = this.parentElement;
+                        const stars = container.querySelectorAll('.rating-star');
+                        const index = Array.from(stars).indexOf(this);
+                        
+                        // 重置所有星星
+                        stars.forEach(s => {
+                            s.classList.remove('fas', 'active');
+                            s.classList.add('far');
+                        });
+                        
+                        // 点亮点击的星星及其之前的星星
+                        for (let i = 0; i <= index; i++) {
+                            stars[i].class极.remove('far');
+                            stars[i].classList.add('fas', 'active');
+                        }
+                    });
+                });
+                
+                // 提交评分按钮
+                detailsElement.querySelector('.submit-player-rating').addEventListener('click', function() {
+                    // 收集评分数据
+                    const ratings = {};
+                    const ratingContainers = detailsElement.querySelectorAll('.rating-stars');
+                    
+                    ratingContainers.forEach(container => {
+                        const category = container.getAttribute('data-category');
+                        const activeStars = container.querySelectorAll('.rating-star.active').length;
+                        ratings[category] = activeStars;
+                    });
+                    
+                    // 检查是否所有类别都有评分
+                    const allRated = Object.values(ratings).every(rating => rating > 0);
+                    
+                    if (!allRated) {
+                        alert('请为所有类别评分！');
+                        return;
+                    }
+                    
+                    // 在实际应用中，这里会将数据发送到服务器
+                    // 这里我们只显示成功消息
+                    alert(`为${playerName}的评分提交成功！感谢您的参与！`);
+                    
+                    // 关闭模态框
+                    document.getElementById('playerModal').style.display = 'none';
+                });
+                
+                // 取消评分按钮
+                detailsElement.querySelector('.rating-btn.cancel').addEventListener('click', function() {
+                    // 重置评分
+                    const modalStars = detailsElement.querySelectorAll('.rating-star');
+                    modalStars.forEach(star => {
+                        star.classList.remove('fas', 'active');
+                        star.classList.add('far');
+                    });
+                });
+            }
+            
+            modal.style.display = 'flex';
+        }
+        
+        // 重置评分
+        function resetRatings() {
+            const stars = document.querySelectorAll('.rating-system .rating-star');
+            stars.forEach(star => {
+                star.classList.remove('fas', 'active');
+                star.classList.add('far');
+            });
+        }
+        
+        // 添加评论
+        function addComment(author, content) {
+            const comment = {
+                id: Date.now(),
+                author,
+                content,
+                date: new Date().toLocaleString(),
+                likes: 0
+            };
+            
+            // 保存到本地存储
+            let comments = JSON.parse(localStorage.getItem('comments')) || [];
+            comments.push(comment);
+            localStorage.setItem('comments', JSON.stringify(comments));
+            
+            // 重新加载评论
+            loadComments();
+        }
+        
+        // 加载评论
+        function loadComments() {
+            const commentsList = document.getElementById('commentsList');
+            const comments = JSON.parse(localStorage.getItem('comments')) || [];
+            
+            if (comments.length === 0) {
+                commentsList.innerHTML = `
+                    <div class="no-comments">
+                        <i class="fas fa-comment-slash" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                        <p>暂无评论，成为第一个评论者！</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            commentsList.innerHTML = '';
+            
+            // 按时间倒序排序
+            comments.sort((a, b) => b.id - a.id);
+            
+            comments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.className = 'comment';
+                commentElement.innerHTML = `
+                    <div class="comment-header">
+                        <div class="comment-author">${comment.author}</div>
+                        <div class="comment-date">${comment.date}</div>
+                    </div>
+                    <div class="comment-content">${comment.content}</div>
+                    <div class="comment-actions">
+                        <div class="comment-action like-comment" data-id="${comment.id}">
+                            <i class="far fa-thumbs-up"></i> <span>${comment.likes || 0}</span>
+                        </div>
+                        <div class="comment-action">
+                            <i class="far fa-comment"></i> 回复
+                        </div>
+                    </div>
+                `;
+                commentsList.appendChild(commentElement);
+            });
+            
+            // 添加点赞事件
+            document.querySelectorAll('.like-comment').forEach(button => {
+                button.addEventListener('click', function() {
+                    const commentId = parseInt(this.getAttribute('data-id'));
+                    likeComment(commentId);
+                });
+            });
+        }
+        
+        // 点赞评论
+        function likeComment(commentId) {
+            let comments = JSON.parse(localStorage.getItem('comments')) || [];
+            const commentIndex = comments.findIndex(c => c.id === commentId);
+            
+            if (commentIndex !== -1) {
+                // 增加点赞数
+                comments[commentIndex].likes = (comments[commentIndex].likes || 0) + 1;
+                localStorage.setItem('comments', JSON.stringify(comments));
+                
+                // 更新显示
+                loadComments();
+            }
+        }
+    </script>
+</body>
+</html>
