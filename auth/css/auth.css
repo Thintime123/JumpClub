@@ -602,6 +602,115 @@ body {
     }
 }
 
+/* 页面动画 */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 浮动粒子动画 */
+.floating-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.floating-particles::before,
+.floating-particles::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(79, 195, 247, 0.6);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-particles::before {
+    top: 20%;
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.floating-particles::after {
+    top: 60%;
+    right: 20%;
+    animation-delay: 3s;
+}
+
+/* 光球装饰 */
+.glow-orbs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 195, 247, 0.3), transparent);
+    animation: pulse 4s ease-in-out infinite;
+}
+
+.orb-1 {
+    width: 100px;
+    height: 100px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.orb-2 {
+    width: 150px;
+    height: 150px;
+    top: 50%;
+    right: 10%;
+    animation-delay: 2s;
+}
+
+.orb-3 {
+    width: 80px;
+    height: 80px;
+    bottom: 20%;
+    left: 30%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(-20px) translateX(10px);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .auth-container {

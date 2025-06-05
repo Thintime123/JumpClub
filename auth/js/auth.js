@@ -5,14 +5,14 @@
 
 // API 端点配置
 const API_ENDPOINTS = {
-    LOGIN: '/api/auth/login',
-    REGISTER: '/api/auth/register',
-    CHECK_USERNAME: '/api/auth/check-username',
-    SEND_VERIFICATION: '/api/auth/send-verification',
-    RESET_PASSWORD: '/api/auth/reset-password',
-    REFRESH_TOKEN: '/api/auth/refresh',
-    LOGOUT: '/api/auth/logout',
-    PROFILE: '/api/auth/profile'
+    LOGIN: '/api/login.php',
+    REGISTER: '/api/register.php',
+    CHECK_USERNAME: '/api/check-username',
+    SEND_VERIFICATION: '/api/send-verification',
+    RESET_PASSWORD: '/api/reset-password',
+    REFRESH_TOKEN: '/api/refresh',
+    LOGOUT: '/api/logout',
+    PROFILE: '/api/profile'
 };
 
 // 存储键名配置

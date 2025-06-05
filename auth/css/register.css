@@ -9,7 +9,7 @@
 
 /* 信息面板 - 注册专用 */
 .auth-info {
-    flex: 1;
+    flex: 0.8;
     background: linear-gradient(135deg, #667eea, #764ba2);
     padding: 60px 40px;
     display: flex;
@@ -155,13 +155,32 @@
 
 /* 表单区域 */
 .auth-form-section {
-    flex: 1.2;
+    flex: 1.4;
     padding: 60px 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     background: rgba(15, 23, 42, 0.9);
     overflow-y: auto;
+}
+
+/* 右侧注册表单面板 */
+.auth-form-panel {
+    flex: 1.4;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.9);
+    overflow-y: auto;
+}
+
+/* 表单容器居中 */
+.auth-form-container {
+    width: 100%;
+    max-width: 500px;
 }
 
 .form-header {
@@ -670,7 +689,8 @@
     }
     
     .auth-info,
-    .auth-form-section {
+    .auth-form-section,
+    .auth-form-panel {
         padding: 30px 20px;
     }
     

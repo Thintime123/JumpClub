@@ -22,7 +22,7 @@
             <div class="user-nav-left">
                 <div class="site-brand">
                     <i class="fas fa-rocket"></i>
-                    <span>跳跃俱乐部</span>
+                    <span>JumpClub</span>
                 </div>
             </div>
             <div class="user-nav-right" id="userNavRight">
@@ -122,7 +122,17 @@
         
         <div class="section" id="detail-players">
             <h2 class="section-title"><i class="fas fa-users"></i> 详情人物一览表</h2>
-            <div class="players-container">
+            <!-- 添加加载状态指示器 -->
+            <div id="players-loading" class="loading-indicator" style="display: none;">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>正在加载玩家数据...</span>
+            </div>
+            <!-- API数据容器 -->
+            <div id="players-container" class="players-container">
+                <!-- 所有玩家将通过API动态生成 -->
+            </div>
+            <!-- 原有数据容器作为后备 -->
+            <div class="players-container fallback-players">
                 <!-- 所有玩家将通过JS动态生成 -->
             </div>
         </div>
@@ -306,6 +316,9 @@
         </div>
     </div>
 
+    <!-- API集成模块 -->
+    <script src="js/api-integration.js"></script>
+    
     <!-- JavaScript 模块 -->
     <script src="js/data.js"></script>
     <script src="js/ui.js"></script>

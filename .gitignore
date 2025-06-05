@@ -1,0 +1,8 @@
+.obsidian
+docs/
+jumpclub/
+
+api-integration-backup.js
+api-integration-fixed.js
+api-test.*
+test.html
