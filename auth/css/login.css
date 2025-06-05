@@ -1,0 +1,119 @@
+/* Login Page Specific Styles - 登录页面专用样式 */
+
+.login-container .auth-title::after {
+    content: " 👋";
+    animation: wave 2s ease-in-out infinite;
+}
+
+.login-remember {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e0e0ff;
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: #4fc3f7;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #29b6f6;
+    text-decoration: underline;
+}
+
+.login-footer {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(79, 195, 247, 0.2);
+    color: #81d4fa;
+}
+
+.register-prompt {
+    margin-bottom: 15px;
+}
+
+.register-link {
+    color: #4fc3f7;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.register-link:hover {
+    color: #29b6f6;
+    text-decoration: underline;
+}
+
+/* 登录表单特殊动画 */
+.login-container .form-input:focus {
+    animation: inputGlow 0.3s ease-out;
+}
+
+@keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(20deg); }
+    75% { transform: rotate(-10deg); }
+}
+
+@keyframes inputGlow {
+    0% {
+        box-shadow: 0 0 5px rgba(41, 182, 246, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(41, 182, 246, 0.6);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(41, 182, 246, 0.4);
+    }
+}
+
+/* 快速登录选项 */
+.quick-login {
+    background: rgba(25, 35, 70, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    border: 1px solid rgba(79, 195, 247, 0.2);
+}
+
+.quick-login h4 {
+    color: #4fc3f7;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.demo-accounts {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.demo-account {
+    background: rgba(41, 98, 255, 0.1);
+    color: #4fc3f7;
+    border: 1px solid rgba(41, 98, 255, 0.3);
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.demo-account:hover {
+    background: rgba(41, 98, 255, 0.2);
+    transform: translateY(-2px);
+}

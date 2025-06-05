@@ -17,6 +17,52 @@
     </div>
     
     <div class="header">
+        <!-- 用户导航栏 -->
+        <div class="user-nav">
+            <div class="user-nav-left">
+                <div class="site-brand">
+                    <i class="fas fa-rocket"></i>
+                    <span>跳跃俱乐部</span>
+                </div>
+            </div>
+            <div class="user-nav-right" id="userNavRight">
+                <!-- 未登录状态 -->
+                <div class="auth-buttons" id="authButtons">
+                    <a href="auth/login.html" class="nav-btn login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        登录
+                    </a>
+                    <a href="auth/register.html" class="nav-btn register-btn">
+                        <i class="fas fa-user-plus"></i>
+                        注册
+                    </a>
+                </div>
+                <!-- 已登录状态 -->
+                <div class="user-menu" id="userMenu" style="display: none;">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="username" id="username">用户名</span>
+                        <div class="user-dropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                个人资料
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                设置
+                            </a>
+                            <a href="#" class="dropdown-item" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                退出登录
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="author">作者：八仙 （又作 Ba^Xian）</div>
         <h1>身法人物图鉴</h1>
         <p class="subtitle">2014年—2025年全服最有影响力的身法玩家，排名因素：所处时代水平，身法界贡献 人品 人气 等等</p>

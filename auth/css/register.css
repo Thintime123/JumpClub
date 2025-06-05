@@ -1,0 +1,349 @@
+/* Register Page Specific Styles - 注册页面专用样式 */
+
+.register-container .auth-title::after {
+    content: " 🚀";
+}
+
+.register-container {
+    max-width: 500px;
+}
+
+/* 用户名实时验证 */
+.username-check {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    z-index: 2;
+}
+
+.username-check.checking {
+    color: #ff9800;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.username-check.available {
+    color: #4caf50;
+}
+
+.username-check.unavailable {
+    color: #f44336;
+}
+
+/* 邮箱验证状态 */
+.email-validation {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.email-validation.valid {
+    color: #4caf50;
+}
+
+.email-validation.invalid {
+    color: #f44336;
+}
+
+/* 密码确认匹配指示 */
+.password-match {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.password-match.match {
+    color: #4caf50;
+}
+
+.password-match.no-match {
+    color: #f44336;
+}
+
+/* 手机号输入优化 */
+.phone-group {
+    display: flex;
+    gap: 10px;
+}
+
+.country-code {
+    width: 80px;
+    padding: 15px 10px;
+    border-radius: 12px;
+    border: 2px solid rgba(79, 195, 247, 0.3);
+    background: rgba(10, 15, 35, 0.7);
+    color: #e0e0ff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.phone-input {
+    flex: 1;
+}
+
+/* 验证码发送按钮 */
+.verification-send {
+    background: linear-gradient(90deg, #ff9800, #ff5722);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    height: 52px;
+}
+
+.verification-send:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
+}
+
+.verification-send:disabled {
+    background: rgba(129, 212, 250, 0.3);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.verification-countdown {
+    color: #81d4fa;
+    font-size: 0.85rem;
+}
+
+/* 用户协议样式增强 */
+.terms-agreement {
+    background: rgba(25, 35, 70, 0.4);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(79, 195, 247, 0.2);
+}
+
+.agreement-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #e0e0ff;
+    margin-bottom: 15px;
+}
+
+/* 注册进度指示器 */
+.register-progress {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.progress-step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(129, 212, 250, 0.2);
+    border: 2px solid rgba(129, 212, 250, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #81d4fa;
+    font-size: 0.9rem;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active {
+    background: linear-gradient(45deg, #2962ff, #29b6f6);
+    border-color: #29b6f6;
+    color: white;
+    transform: scale(1.1);
+}
+
+.progress-step.completed {
+    background: #4caf50;
+    border-color: #4caf50;
+    color: white;
+}
+
+.progress-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(129, 212, 250, 0.2);
+    z-index: 1;
+    transform: translateY(-50%);
+}
+
+.progress-line-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2962ff, #29b6f6);
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+/* 注册成功动画 */
+.register-success {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #4caf50, #66bb6a);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 20px;
+    animation: bounceIn 0.6s ease-out;
+}
+
+.success-title {
+    color: #4caf50;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.success-message {
+    color: #e0e0ff;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.success-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.success-btn {
+    padding: 12px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.success-btn.primary {
+    background: linear-gradient(90deg, #2962ff, #2979ff);
+    color: white;
+}
+
+.success-btn.secondary {
+    background: rgba(25, 35, 70, 0.7);
+    color: #4fc3f7;
+    border: 2px solid rgba(79, 195, 247, 0.3);
+}
+
+.success-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(41, 121, 255, 0.4);
+}
+
+/* 动画效果 */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(-50%) scale(1.1);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 表单分步 */
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 注册页面响应式优化 */
+@media (max-width: 768px) {
+    .register-container {
+        max-width: 100%;
+    }
+    
+    .phone-group {
+        flex-direction: column;
+    }
+    
+    .country-code {
+        width: 100%;
+    }
+    
+    .success-actions {
+        flex-direction: column;
+    }
+    
+    .progress-step {
+        width: 25px;
+        height: 25px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .register-progress {
+        margin-bottom: 20px;
+    }
+    
+    .verification-send {
+        padding: 10px 15px;
+        font-size: 0.85rem;
+    }
+    
+    .success-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+}

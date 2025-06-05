@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 跳跃俱乐部</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 背景装饰 -->
+    <div class="auth-background">
+        <div class="grid-pattern"></div>
+        <div class="floating-particles"></div>
+        <div class="glow-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="auth-nav">
+        <div class="nav-brand">
+            <a href="../index.html">
+                <i class="fas fa-rocket"></i>
+                跳跃俱乐部
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">首页</a>
+            <a href="../about.html">关于</a>
+            <a href="register.html" class="nav-register">注册</a>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="auth-main">
+        <div class="auth-container">
+            <!-- 左侧信息面板 -->
+            <div class="auth-info">
+                <div class="info-content">
+                    <h2 class="info-title">欢迎回来！</h2>
+                    <p class="info-subtitle">登录你的账号继续探索无限可能</p>
+                    <div class="info-features">
+                        <div class="feature-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>数据分析</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-users"></i>
+                            <span>社区交流</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-trophy"></i>
+                            <span>成就系统</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-illustration">
+                    <div class="login-waves">
+                        <div class="wave wave-1"></div>
+                        <div class="wave wave-2"></div>
+                        <div class="wave wave-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧登录表单 -->
+            <div class="auth-form-panel">
+                <div class="auth-form-container">
+                    <div class="form-header">
+                        <h1 class="form-title">用户登录</h1>
+                        <p class="form-subtitle">登录你的账号开始使用</p>
+                    </div>
+
+                    <form id="loginForm" class="auth-form">
+                        <!-- 用户名/邮箱输入框 -->
+                        <div class="form-group">
+                            <label for="username" class="form-label">
+                                <i class="fas fa-user"></i>
+                                用户名或邮箱
+                            </label>
+                            <div class="input-container">
+                                <input 
+                                    type="text" 
+                                    id="username" 
+                                    name="username" 
+                                    class="form-input" 
+                                    placeholder="输入用户名或邮箱"
+                                    autocomplete="username"
+                                    required
+                                >
+                                <div class="input-focus-line"></div>
+                            </div>
+                            <div class="form-feedback"></div>
+                        </div>
+
+                        <!-- 密码输入框 -->
+                        <div class="form-group">
+                            <label for="password" class="form-label">
+                                <i class="fas fa-lock"></i>
+                                密码
+                            </label>
+                            <div class="input-container password-container">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    class="form-input" 
+                                    placeholder="输入密码"
+                                    autocomplete="current-password"
+                                    required
+                                >
+                                <button type="button" class="password-toggle" tabindex="-1">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <div class="input-focus-line"></div>
+                            </div>
+                            <div class="form-feedback"></div>
+                        </div>
+
+                        <!-- 选项区域 -->
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="rememberMe" name="rememberMe">
+                                <span class="checkbox-checkmark"></span>
+                                <span class="checkbox-text">记住我</span>
+                            </label>
+                            <a href="forgot-password.html" class="forgot-password">忘记密码？</a>
+                        </div>
+
+                        <!-- 登录按钮 -->
+                        <button type="submit" class="auth-button primary" id="loginButton">
+                            <span class="button-text">登录</span>
+                            <span class="button-loader">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </span>
+                        </button>
+
+                        <!-- 快速登录选项 -->
+                        <div class="quick-login">
+                            <div class="quick-login-header">
+                                <span>快速登录</span>
+                            </div>
+                            <div class="demo-accounts">
+                                <button type="button" class="demo-btn" data-username="demo_user" data-password="demo123">
+                                    <i class="fas fa-user-circle"></i>
+                                    体验账号
+                                </button>
+                                <button type="button" class="demo-btn" data-username="admin" data-password="admin123">
+                                    <i class="fas fa-user-shield"></i>
+                                    管理员
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- 第三方登录 -->
+                    <div class="social-login">
+                        <div class="divider">
+                            <span>或者使用以下方式登录</span>
+                        </div>
+                        <div class="social-buttons">
+                            <button class="social-btn qq" data-provider="qq">
+                                <i class="fab fa-qq"></i>
+                                QQ
+                            </button>
+                            <button class="social-btn wechat" data-provider="wechat">
+                                <i class="fab fa-weixin"></i>
+                                微信
+                            </button>
+                            <button class="social-btn github" data-provider="github">
+                                <i class="fab fa-github"></i>
+                                GitHub
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 注册链接 -->
+                    <div class="auth-switch">
+                        <span>还没有账号？</span>
+                        <a href="register.html" class="switch-link">立即注册</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 通知消息容器 -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <!-- JavaScript模块 -->
+    <script src="js/validation.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
